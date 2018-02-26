@@ -7,6 +7,9 @@
 #include <stdlib.h>
 #include "matrix.h"
 #include "vect.h"
+#include "matrix.cpp"
+#include "vect.cpp"
+#include <vector>
 
 using namespace std;
 
@@ -46,7 +49,7 @@ int main()
 			<< "2. Vvod dannyh v v" << endl
 			<< "3. Vyvod dannyh iz matr" << endl
 			<< "4. Vyvod dannyh iz v" << endl
-			<< "5. " << endl
+			<< "5. Factorizaciya matr " << endl
 			<< "6. " << endl
 			<< "7. " << endl
 			<< "8." << endl
@@ -86,7 +89,9 @@ int main()
 		}
 		case 5:
 		{
-
+			cout <<"Factoriz matr"<<endl;
+			matr.factoriz();
+			system("pause");
 			break;
 
 		}
