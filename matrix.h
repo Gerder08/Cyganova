@@ -9,6 +9,7 @@ class matrix
         void get_matrix();
         void set_matrix();
         void del_matrix();
+		void factoriz();
     private:
         double **A;
         double **B;
