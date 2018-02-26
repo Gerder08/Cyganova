@@ -12,7 +12,7 @@ class matrix
 		void factoriz();
     private:
         double **A;
-        double **B;
+        //double **B;
         int n;
         int i;
         int j;

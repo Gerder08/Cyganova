@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1519072026 source:i:\cyganova\cyganova\main.cpp
+1519665440 source:i:\cyganova\cyganova\main.cpp
 	<stdio.h>
 	<tchar.h>
 	<iostream>
@@ -9,16 +9,26 @@
 	"matrix.h"
 	"vect.h"
 
-1519663911 i:\cyganova\cyganova\matrix.h
+1519665207 i:\cyganova\cyganova\matrix.h
 
 1519072287 i:\cyganova\cyganova\vect.h
 
-1519664037 source:i:\cyganova\cyganova\matrix.cpp
+1519665400 source:i:\cyganova\cyganova\matrix.cpp
 	"matrix.h"
 	<fstream>
 	<iostream>
 
 1519073048 source:i:\cyganova\cyganova\vect.cpp
+	"vect.h"
+	<fstream>
+	<iostream>
+
+1519665400 i:\cyganova\cyganova\matrix.cpp
+	"matrix.h"
+	<fstream>
+	<iostream>
+
+1519073048 i:\cyganova\cyganova\vect.cpp
 	"vect.h"
 	<fstream>
 	<iostream>

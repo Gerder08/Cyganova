@@ -7,9 +7,9 @@
 #include <stdlib.h>
 #include "matrix.h"
 #include "vect.h"
-#include "matrix.cpp"
-#include "vect.cpp"
-#include <vector>
+//#include "matrix.cpp"
+//#include "vect.cpp"
+//#include <vector>
 
 using namespace std;
 
