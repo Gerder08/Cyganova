@@ -15,7 +15,7 @@ using namespace std;
 
 int main()
 {
-	int sw, n;
+	int sw, n,d;
 
 	//double *A;
 	//double *B;
@@ -90,7 +90,7 @@ int main()
 		case 5:
 		{
 			cout <<"Factoriz matr"<<endl;
-			matr.factoriz();
+			matr.get_factoriz();
 			system("pause");
 			break;
 

@@ -76,8 +76,12 @@ void matrix::factoriz() {
         cout<<endl;
     }
     */
-    cout<<endl;
-	for(i=0;i<n;i++){
+    //cout<<endl;
+
+}
+void matrix::get_factoriz(){
+    matrix::factoriz();
+    for(i=0;i<n;i++){
         for(j=0;j<n;j++){
             cout<<F[i][j]<<" ";
         }
@@ -88,8 +92,9 @@ void matrix::det(){
     matrix::factoriz();
     for(i=0;i<n;i++){
         for(j=0;j<n;j++){
-            if(i=j)
+            if(i==j){
                 d*=F[i][j];
+            }
         }
     }
     cout<<d;
