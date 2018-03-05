@@ -98,6 +98,7 @@ void matrix::det(){
         }
     }
     cout<<d;
+    d=1;
 }
 /*
 void matrix::Det() {

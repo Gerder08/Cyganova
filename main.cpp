@@ -15,7 +15,7 @@ using namespace std;
 
 int main()
 {
-	int sw, n,d;
+	int sw, n;
 
 	//double *A;
 	//double *B;

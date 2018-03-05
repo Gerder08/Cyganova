@@ -13,7 +13,7 @@
 
 1519072287 i:\cyganova\cyganova\vect.h
 
-1520272516 source:i:\cyganova\cyganova\matrix.cpp
+1520274010 source:i:\cyganova\cyganova\matrix.cpp
 	"matrix.h"
 	<fstream>
 	<iostream>
