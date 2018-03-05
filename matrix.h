@@ -10,9 +10,11 @@ class matrix
         void set_matrix();
         void del_matrix();
 		void factoriz();
+		void det();
     private:
         double **A;
-        //double **B;
+        double **F;
+        int d;
         int n;
         int i;
         int j;

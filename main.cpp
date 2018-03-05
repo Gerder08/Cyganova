@@ -50,7 +50,7 @@ int main()
 			<< "3. Vyvod dannyh iz matr" << endl
 			<< "4. Vyvod dannyh iz v" << endl
 			<< "5. Factorizaciya matr " << endl
-			<< "6. " << endl
+			<< "6. Detremenant matr" << endl
 			<< "7. " << endl
 			<< "8." << endl
 			<< "9. " << endl
@@ -97,7 +97,9 @@ int main()
 		}
 		case 6:
 		{
-
+            cout <<"Detremenant matr"<<endl;
+			matr.det();
+			system("pause");
 			break;
 		}
 		case 7:
