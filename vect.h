@@ -9,8 +9,8 @@ class vect
         void get_vect();
         void set_vect();
         void del_vect();
-    private:
         double *A;
+    private:
         double **B;
         int n;
         int i;

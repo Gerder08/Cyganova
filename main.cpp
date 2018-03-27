@@ -20,24 +20,11 @@ int main()
 	//double *A;
 	//double *B;
 
-	//cin >> n;
-/*
-	B = new double[n];
-	for (int i = 0; i < n; i++)
-	{
-		A[i] = new double[n];
-	}
 
-	delete[] B;
-	for(i=0; i<n; i++)
-	delete[] A[i];
-	delete[] A;
-	 */
     matrix matr;
-    vect v;
     cout<<"n= ";cin >> n;
     matr.create_matrix(n);
-    v.create_vect(n);
+    matr.create_vect(n);
 
 
 	while (1)
@@ -52,7 +39,7 @@ int main()
 			<< "5. Factorizaciya matr " << endl
 			<< "6. Detremenant matr" << endl
 			<< "7. " << endl
-			<< "8." << endl
+			<< "8. " << endl
 			<< "9. " << endl
 			<< "10.Vyhod" << endl;
 
@@ -69,7 +56,7 @@ int main()
 		case 2:
 		{
 		    cout<<"Vvod v";
-		    v.set_vect();
+		    matr.set_vect();
 			break;
 
 		}
@@ -83,7 +70,7 @@ int main()
 		case 4:
 		{
 		    cout<<"Vyvod v"<<endl;
-		    v.get_vect();
+		    matr.get_vect();
             system("pause");
 			break;
 		}
@@ -104,14 +91,18 @@ int main()
 		}
 		case 7:
 		{
-
+            cout<<"slae"<<endl;
+            matr.get_slae();
+            system("pause");
 
 			break;
 
 		}
 		case 8:
 		{
-
+            cout<<"obr"<<endl;
+            matr.get_obr();
+            system("pause");
 			break;
 
 		}
@@ -124,7 +115,7 @@ int main()
 		case 10:
 		{
             matr.del_matrix();
-            v.del_vect();
+            matr.del_vect();
 			return 0;
 
 		}

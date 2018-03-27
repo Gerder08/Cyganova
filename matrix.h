@@ -12,13 +12,25 @@ class matrix
 		void factoriz();
 		void get_factoriz();
 		void det();
+		void slae();
+		void obr();
+		void get_slae();
+		void get_obr();
+		void create_vect(int n);
+        void get_vect();
+        void set_vect();
+        void del_vect();
     private:
         double **A;
         double **F;
+        double **X;
+        double *V;
+        double *x;
         int d=1;
         int n;
         int i;
         int j;
+        int *p, *q;
 };
 
 #endif // MATRIX_H

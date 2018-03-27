@@ -23,8 +23,6 @@
 		<Unit filename="main.cpp" />
 		<Unit filename="matrix.cpp" />
 		<Unit filename="matrix.h" />
-		<Unit filename="vect.cpp" />
-		<Unit filename="vect.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

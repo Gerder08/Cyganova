@@ -33,3 +33,28 @@
 	<fstream>
 	<iostream>
 
+1520319313 source:f:\cyganova\cyganova\main.cpp
+	<stdio.h>
+	<tchar.h>
+	<iostream>
+	<string>
+	<fstream>
+	<stdlib.h>
+	"matrix.h"
+	"vect.h"
+
+1521529466 f:\cyganova\cyganova\matrix.h
+
+1521528471 f:\cyganova\cyganova\vect.h
+
+1521529639 source:f:\cyganova\cyganova\matrix.cpp
+	"matrix.h"
+	<fstream>
+	<iostream>
+	<math.h>
+
+1519073048 source:f:\cyganova\cyganova\vect.cpp
+	"vect.h"
+	<fstream>
+	<iostream>
+

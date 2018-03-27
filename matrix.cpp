@@ -1,6 +1,7 @@
 #include "matrix.h"
 #include <fstream>
 #include <iostream>
+#include <math.h>
 //#include <vector>
 
 using namespace std;
@@ -41,12 +42,23 @@ void matrix::del_matrix(){
 }
 
 void matrix::factoriz() {
+    int imax=0, jmax=0, buf;
+   // int *p, *q;
+    double mx=0;
+     p =new int[n];
+     q =new int[n];
 
 	F = new double *[n];
 	for (int i = 0; i < n; i++)
 	{
 		F[i] = new double[n];
 	}
+	for ( i=0; i<n; i++)
+    {
+        p[i]=i;
+        q[i]=i;
+    }
+
     for(i=0;i<n;i++){
         for(j=0;j<n;j++){
             F[i][j] = A[i][j];
@@ -54,31 +66,33 @@ void matrix::factoriz() {
     }
 	for (int k = 0; k < n; k++)
 	{
-		for (i = k + 1; i < n; i++)
-			F[k][i] /= F[k][k];
-		for (i = k + 1; i < n; i++)
-			for (j = k + 1; j < n; j++)
-				F[i][j] -= F[i][k] * F[k][j];
-	}
-	/*
-	for (int k = 0; k < n; k++)
-	{
-		for (i = k + 1; i < n; i++)
-			A[k][i] /= A[k][k];
-		for (i = k + 1; i < n; i++)
-			for (j = k + 1; j < n; j++)
-				A[i][j] -= A[i][k] * A[k][j];
-	}
-	for(i=0;i<n;i++){
-        for(j=0;j<n;j++){
-            cout<<A[i][j]<<" ";
-        }
-        cout<<endl;
-    }
-    */
-    //cout<<endl;
 
+
+    // выбока главного элемента
+
+        mx= fabs(F[p[k]][q[k]]);
+        imax=k;
+        jmax=k;
+        for (i = k ; i < n; i++)
+            for (j = k ; j < n; j++)
+        {
+            if(fabs(F[p[i]][q[j]])>mx)
+            {
+                mx=fabs(F[p[i]][q[j]]);
+                imax=i;
+                jmax=j;
+           }
+        }
+
+    for (i = k + 1; i < n; i++){
+			F[p[k]][q[i]] /= F[p[k]][q[k]];
+		for (i = k + 1; i < n; i++)
+			for (j = k + 1; j < n; j++)
+				F[p[i]][q[j]] -= F[p[i]][q[k]] * F[p[k]][q[j]];
+    }
+  }
 }
+
 void matrix::get_factoriz(){
     matrix::factoriz();
     for(i=0;i<n;i++){
@@ -93,12 +107,81 @@ void matrix::det(){
     for(i=0;i<n;i++){
         for(j=0;j<n;j++){
             if(i==j){
-                d*=F[i][j];
+                d*=F[p[i]][q[j]];
             }
         }
     }
     cout<<d;
     d=1;
+}
+
+void matrix::slae(){
+        double s;
+        double y[n];
+    for (i = 0; i<n; i++){
+        s=0;
+        for(j=0; j<i; j++){
+            s+=F[p[i]][q[j]]*y[j];
+            y[i]=(V[p[i]]-s)/F[p[i]][q[j]];
+        }
+    }
+    for(i=n-1;i>=0;i--)
+    {
+        s=0;
+        for(j=i+1;j<n;j++)
+        s+=F[p[i]][q[j]]*x[q[j]];
+        x[q[i]]=y[i]-s;
+    }
+}
+
+void matrix::obr(){
+    for(j=0;j<n;j++){
+        for(i=0;i<n;i++)
+            if(i==j)
+            V[i]=1;
+        else V[i]=0;
+        slae();
+        for(i=0;i<n;i++)
+            X[i][j]=x[i];
+    }
+}
+
+void matrix::get_slae(){
+    slae();
+    for(i=0;i<n;i++){
+            cout<<x[i]<<" ";
+    }
+    cout<<endl;
+}
+void matrix::get_obr(){
+    obr();
+    for(i=0;i<n;i++){
+        for(j=0;j<n;j++){
+            cout<<X[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+}
+void matrix::create_vect(int N){
+    matrix::n=N;
+    V = new double[n];
+}
+void matrix::set_vect(){
+    for(i=0;i<n;i++){
+            cin>>V[i];
+    }
+}
+
+void matrix::get_vect(){
+    for(i=0;i<n;i++){
+            cout<<V[i]<<" ";
+    }
+        cout<<endl;
+}
+void matrix::del_vect(){
+    //for(i=0;i<n;i++){
+        delete []V;
+    //}
 }
 /*
 void matrix::Det() {
