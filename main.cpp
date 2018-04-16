@@ -38,9 +38,9 @@ int main()
 			<< "4. Vyvod dannyh iz v" << endl
 			<< "5. Factorizaciya matr " << endl
 			<< "6. Detremenant matr" << endl
-			<< "7. " << endl
-			<< "8. " << endl
-			<< "9. " << endl
+			<< "7. SLAE" << endl
+			<< "8. Obranya" << endl
+			<< "9. Get p_q" << endl
 			<< "10.Vyhod" << endl;
 
 		cin >> sw;
@@ -69,7 +69,7 @@ int main()
 		}
 		case 4:
 		{
-		    cout<<"Vyvod v"<<endl;
+		    cout<<"Vyvod vector"<<endl;
 		    matr.get_vect();
             system("pause");
 			break;
@@ -108,7 +108,9 @@ int main()
 		}
 		case 9:
 		{
-
+            cout<<"p_q"<<endl;
+            matr.get_p_q();
+            system("pause");
 			break;
 
 		}

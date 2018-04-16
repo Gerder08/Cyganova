@@ -64,6 +64,7 @@ void matrix::factoriz() {
             F[i][j] = A[i][j];
         }
     }
+
 	for (int k = 0; k < n; k++)
 	{
 
@@ -73,8 +74,8 @@ void matrix::factoriz() {
         mx= fabs(F[p[k]][q[k]]);
         imax=k;
         jmax=k;
-        for (i = k ; i < n; i++)
-            for (j = k ; j < n; j++)
+        for (i = k; i < n; i++)
+            for (j = k; j < n; j++)
         {
             if(fabs(F[p[i]][q[j]])>mx)
             {
@@ -84,12 +85,12 @@ void matrix::factoriz() {
            }
         }
 
-    for (i = k + 1; i < n; i++){
+
+    for (i = k + 1; i < n; i++)
 			F[p[k]][q[i]] /= F[p[k]][q[k]];
 		for (i = k + 1; i < n; i++)
 			for (j = k + 1; j < n; j++)
 				F[p[i]][q[j]] -= F[p[i]][q[k]] * F[p[k]][q[j]];
-    }
   }
 }
 
@@ -118,18 +119,24 @@ void matrix::det(){
 void matrix::slae(){
         double s;
         double y[n];
-    for (i = 0; i<n; i++){
-        s=0;
-        for(j=0; j<i; j++){
-            s+=F[p[i]][q[j]]*y[j];
-            y[i]=(V[p[i]]-s)/F[p[i]][q[j]];
+        x = new double[n];
+        for(i=0;i<n;i++){
+            y[i]=0;
+            x[i]=0;
         }
-    }
-    for(i=n-1;i>=0;i--)
-    {
+
+    for (i = 0;i<n;i++){
         s=0;
-        for(j=i+1;j<n;j++)
+        for(j=0; j<=i; j++){
+            s+=F[p[i]][q[j]]*y[j];
+        }
+            y[i]=(V[p[i]]-s)/F[p[i]][q[j]];
+    }
+    for(i=n-1;i>=0;i--){
+        s=0;
+        for(j=i+1;j<n;j++){
         s+=F[p[i]][q[j]]*x[q[j]];
+        }
         x[q[i]]=y[i]-s;
     }
 }
@@ -182,6 +189,10 @@ void matrix::del_vect(){
     //for(i=0;i<n;i++){
         delete []V;
     //}
+}
+void matrix::get_p_q(){
+    for(i=0;i<n;i++)
+        cout<<p[i]<<"   "<<q[i]<<endl;
 }
 /*
 void matrix::Det() {

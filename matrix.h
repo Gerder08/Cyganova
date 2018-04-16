@@ -20,6 +20,7 @@ class matrix
         void get_vect();
         void set_vect();
         void del_vect();
+        void get_p_q();
     private:
         double **A;
         double **F;
