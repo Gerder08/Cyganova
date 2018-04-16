@@ -21,6 +21,8 @@ class matrix
         void set_vect();
         void del_vect();
         void get_p_q();
+        void obras();
+        void get_obras();
     private:
         double **A;
         double **F;

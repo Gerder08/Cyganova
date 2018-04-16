@@ -142,17 +142,66 @@ void matrix::slae(){
 }
 
 void matrix::obr(){
+    double V1[n];
     for(j=0;j<n;j++){
         for(i=0;i<n;i++)
             if(i==j)
-            V[i]=1;
-        else V[i]=0;
+            V1[i]=1;
+        else V1[i]=0;
         slae();
         for(i=0;i<n;i++)
             X[i][j]=x[i];
     }
 }
 
+
+	void matrix::obras() {
+    double s;
+	//1 этап ----------------------------
+	for (int i =0; i<n; i++)
+        for (int j =i+1; j<n; j++)
+        A[p[i]][q[j]]=-A[p[i]][q[j]];
+        for (int j =0; j<n; j++)
+         {
+         A[p[i]][q[j]]=1.0/A[p[i]][q[j]];
+           for (int i =j+1; i<n; i++)
+           A[p[i]][q[j]]=-A[p[i]][q[j]]*A[p[i]][q[j]];
+         }
+       //2 этап----------------------
+       // U
+      for(int k=n-1; k>0; k--)
+      {
+        for (int i =0; i<=k-2; i++)
+            for (int j =k; j<n; j++)
+               A[p[i]][q[j]]+=A[p[i]][q[k-1]]*A[p[k-1]][q[j]];
+      }
+      // L
+      for(int k=0; k<n-1; k++)
+      {
+         for (int i =k+2; i<n; i++)
+            for (int j =0; j<=k; j++)
+                 A[p[i]][q[j]]+=A[p[i]][q[k+1]]*A[p[k+1]][q[j]];
+            for (int j =0; j<=k; j++)
+                A[p[k+1]][q[j]]*=A[p[k+1]][q[k+1]];
+      }
+     // 3 этап-----------------------------------
+     for (int i =0; i<n; i++)
+        for (int j =0; j<n; j++)
+        {
+            if(i<j)
+            {
+                s=0;
+                for(int k=j; k<n; k++)
+                  s+=A[p[i]][q[k]]*A[p[k]][q[j]];
+            }
+            if(i>=j){
+                s=F[p[i]][q[j]];
+                for(int k=i+1; k<n; k++)
+                    s+=F[p[i]][q[k]]*F[p[k]][q[j]];
+            }
+            F[p[i]][q[j]]=s;
+        }
+	}
 void matrix::get_slae(){
     slae();
     for(i=0;i<n;i++){
