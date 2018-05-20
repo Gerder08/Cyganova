@@ -39,8 +39,8 @@ int main()
 			<< "5. Factorizaciya matr " << endl
 			<< "6. Detremenant matr" << endl
 			<< "7. SLAE" << endl
-			<< "8. Obranya" << endl
-			<< "9. Get p_q" << endl
+			<< "8. Obr" << endl
+			<< "9. Obras" << endl
 			<< "10.Vyhod" << endl;
 
 		cin >> sw;
@@ -108,8 +108,8 @@ int main()
 		}
 		case 9:
 		{
-            cout<<"p_q"<<endl;
-            matr.get_p_q();
+            cout<<"Obras"<<endl;
+            matr.get_obras();
             system("pause");
 			break;
 

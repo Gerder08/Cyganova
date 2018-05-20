@@ -12,7 +12,7 @@ class matrix
 		void factoriz();
 		void get_factoriz();
 		void det();
-		void slae();
+		void slae(double *b);
 		void obr();
 		void get_slae();
 		void get_obr();
@@ -21,12 +21,14 @@ class matrix
         void set_vect();
         void del_vect();
         void get_p_q();
-        void obras();
         void get_obras();
+        void obras();
+        double use_slae();
     private:
         double **A;
         double **F;
         double **X;
+        double **E;
         double *V;
         double *x;
         int d=1;
@@ -34,6 +36,8 @@ class matrix
         int i;
         int j;
         int *p, *q;
+        //double *b;
+        double *buf;
 };
 
 #endif // MATRIX_H

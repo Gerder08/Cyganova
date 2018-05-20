@@ -13,12 +13,28 @@ matrix::matrix()
 */
 void matrix::create_matrix(int N){
     matrix::n=N;
-    //F = new double *[n];
+    E = new double *[n];
+    for (int i = 0; i < n; i++){
+        E[i] = new double[n];
+    }
     A = new double *[n];
-	for (int i = 0; i < n; i++)
-	{
-		A[i] = new double[n];
-	}
+    for (int i = 0; i < n; i++){
+        A[i] = new double[n];
+    }
+    X = new double *[n];
+    for (int i = 0; i < n; i++){
+        X[i] = new double[n];
+    }
+
+	//b = new double[n];
+    for(i=0;i<n;i++){
+    for(j=0;j<n;j++){
+            E[i][j] = 1;
+            if(i!=j){E[i][j] = 0;}
+    }
+    }
+	buf = new double[n];
+    x = new double[n];
 }
 void matrix::set_matrix(){
     for(i=0;i<n;i++){
@@ -39,6 +55,8 @@ void matrix::del_matrix(){
     for(i=0;i<n;i++)
         delete []A[i];
     delete []A;
+    //delete []b;
+    delete []buf;
 }
 
 void matrix::factoriz() {
@@ -116,10 +134,10 @@ void matrix::det(){
     d=1;
 }
 
-void matrix::slae(){
+void matrix::slae(double *b){
         double s;
         double y[n];
-        x = new double[n];
+        //x = new double[n];
         for(i=0;i<n;i++){
             y[i]=0;
             x[i]=0;
@@ -130,7 +148,7 @@ void matrix::slae(){
         for(j=0; j<=i; j++){
             s+=F[p[i]][q[j]]*y[j];
         }
-            y[i]=(V[p[i]]-s)/F[p[i]][q[j]];
+            y[i]=(b[p[i]]-s)/F[p[i]][q[i]];
     }
     for(i=n-1;i>=0;i--){
         s=0;
@@ -142,75 +160,115 @@ void matrix::slae(){
 }
 
 void matrix::obr(){
-    double V1[n];
-    for(j=0;j<n;j++){
-        for(i=0;i<n;i++)
-            if(i==j)
-            V1[i]=1;
-        else V1[i]=0;
-        slae();
-        for(i=0;i<n;i++)
-            X[i][j]=x[i];
+    int l,m;
+    double *I;
+    I = new double[n];
+        for(m=0;m<n;m++){
+            for(l=0;l<n;l++){
+        I[l] = 0;
+        if(l==m){
+                I[l]=1;
+        }
+    }
+        slae(I);
+        for(l=0;l<n;l++){
+                cout<<x[l]<<" ";
+            X[l][m]=x[l];
+
+        }
+        cout<<endl;
     }
 }
 
 
 	void matrix::obras() {
     double s;
+    const double one = 1.0;
 	//1 этап ----------------------------
-	for (int i =0; i<n; i++)
-        for (int j =i+1; j<n; j++)
-        A[p[i]][q[j]]=-A[p[i]][q[j]];
-        for (int j =0; j<n; j++)
-         {
-         A[p[i]][q[j]]=1.0/A[p[i]][q[j]];
-           for (int i =j+1; i<n; i++)
-           A[p[i]][q[j]]=-A[p[i]][q[j]]*A[p[i]][q[j]];
-         }
+	for (int i =0; i<n; i++){
+        for (int j =i+1; j<n; j++){
+        F[p[i]][q[j]]=-F[p[i]][q[j]];
+        }
+	}
+    for (int j =0; j<n; j++){
+     F[p[j]][q[j]]=one/F[p[j]][q[j]];
+       for (int i =j+1; i<n; i++){
+            F[p[i]][q[j]]=-F[p[i]][q[j]]*F[p[i]][q[j]];
+       }
+     }
        //2 этап----------------------
        // U
-      for(int k=n-1; k>0; k--)
-      {
-        for (int i =0; i<=k-2; i++)
-            for (int j =k; j<n; j++)
-               A[p[i]][q[j]]+=A[p[i]][q[k-1]]*A[p[k-1]][q[j]];
+      for(int k=n-1; k>0; k--){
+        for (int i =0; i<=k-2; i++){
+            for (int j =k; j<n; j++){
+               F[p[i]][q[j]]+=F[p[i]][q[k-1]]*F[p[k-1]][q[j]];
+            }
+        }
       }
       // L
-      for(int k=0; k<n-1; k++)
-      {
-         for (int i =k+2; i<n; i++)
-            for (int j =0; j<=k; j++)
-                 A[p[i]][q[j]]+=A[p[i]][q[k+1]]*A[p[k+1]][q[j]];
-            for (int j =0; j<=k; j++)
-                A[p[k+1]][q[j]]*=A[p[k+1]][q[k+1]];
+      for(int k=0; k<n-1; k++){
+         for (int i =k+2; i<n; i++){
+            for (int j =0; j<=k; j++){
+                 F[p[i]][q[j]]+=F[p[i]][q[k+1]]*F[p[k+1]][q[j]];
+            }
+         }
+            for (int j =0; j<=k; j++){
+                F[p[k+1]][q[j]]*=F[p[k+1]][q[k+1]];
+            }
       }
      // 3 этап-----------------------------------
-     for (int i =0; i<n; i++)
-        for (int j =0; j<n; j++)
-        {
-            if(i<j)
-            {
+     for (int i =0; i<n; i++){
+        for (int j =0; j<n; j++){
+            if(i<j){
                 s=0;
-                for(int k=j; k<n; k++)
-                  s+=A[p[i]][q[k]]*A[p[k]][q[j]];
+                for(int k=j; k<n; k++){
+                  s+=F[p[i]][q[k]]*F[p[k]][q[j]];
+                }
             }
             if(i>=j){
                 s=F[p[i]][q[j]];
-                for(int k=i+1; k<n; k++)
+                for(int k=i+1; k<n; k++){
                     s+=F[p[i]][q[k]]*F[p[k]][q[j]];
+                }
             }
             F[p[i]][q[j]]=s;
         }
 	}
+}
 void matrix::get_slae(){
-    slae();
+    slae(V);
     for(i=0;i<n;i++){
             cout<<x[i]<<" ";
     }
     cout<<endl;
 }
+
+void matrix::get_obras(){
+    obras();
+    for(i=0;i<n;i++){
+        for(j=0;j<n;j++){
+            cout<<F[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+}
+/*
+double matrix::use_slae(){
+    for(int j =0; j<n; j++){
+            //b[i]=1;
+            slae(&E[0][j]);
+            //b[i] = 0;
+    }
+}
+*/
 void matrix::get_obr(){
     obr();
+     for(i=0;i<n;i++){
+    for(j=0;j<n;j++){
+        cout<<E[i][j];
+    }
+    cout<<endl;
+    }
     for(i=0;i<n;i++){
         for(j=0;j<n;j++){
             cout<<X[i][j]<<" ";
@@ -243,68 +301,16 @@ void matrix::get_p_q(){
     for(i=0;i<n;i++)
         cout<<p[i]<<"   "<<q[i]<<endl;
 }
-/*
-void matrix::Det() {
-    double mas=**A;
-    int m=n;
-int i, j, d, k, o;
-int ki, kj, di, dj;
-int **p;
-p = new int*[m];
-for (i = 0; i<m; i++)
-p[i] = new int[m];
-j = 0; d = 0;
-k = 1; //(-1) в степени i
-n = m - 1;
-if (m<1) cout << "Opr vycheslit' nevozmojno!";
-if (m == 1) {
-d = mas[0][0];
-return(d);
-}
-if (m == 2) {
-d = mas[0][0] * mas[1][1] - (mas[1][0] * mas[0][1]);
-return(d);
-}
-if (m>2) {
-for (i = 0; i<m; i++) {
-di = 0;
-for (ki = 0; ki<m - 1; ki++) { // проверка индекса строки
-if (ki == i) di = 1;
-dj = 0;
-for (kj = 0; kj<m - 1; kj++) { // проверка индекса столбца
-if (kj == j) dj = 1;
-p[ki][kj] = mas[ki + di][kj + dj];
-}
-}
-d = d + k * mas[i][0] * Det(p, o);
-k = -k;
-}
-}
-cout<<d;
-} */
-/*
-void matrix::det(){
-int l;
-double d;
-double sum11=1,sum12=0, sum21=1, sum22=0;
-// находим детерминант
-        for(int i=0;i<n;i++){
-            sum11=1; l=2*n-1-i;sum21=1;
-            for(int j=0;j<n;j++){
-                sum21*=A[j][l%n];
-            l--;
-            sum11*=A[j][(j+i)%(n)];
+void matrix::ex1{
+    cout<<"===============================================================================";
+    cout<<"|Poryadok|Vremya|Pogreshnost|Teoretich chislo operaciy|Realnoe chislo operaciy|";
+    cout<<"|--------+------+-----------+-------------------------+-----------------------|";
+    for(int N = 5; N<=100; N+5;){
+        matrix::create_matrix(N);
+        for(i=0;i<n;i++){
+            for(j=0;j<n;j++){
+                A[i][j] = rand() %50 -50;
+            }
         }
-        sum22+=sum21;
-        sum12+=sum11;
     }
-    d=sum12-sum22;
-    cout<<d;
 }
-*/
-/*
-matrix::~matrix()
-{
-    //dtor
-}
-*/
