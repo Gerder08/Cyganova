@@ -2,6 +2,10 @@
 #include <fstream>
 #include <iostream>
 #include <math.h>
+#include <time.h>
+#include <chrono>
+#include <conio.h>
+#include <stdlib.h>
 //#include <vector>
 
 using namespace std;
@@ -301,6 +305,84 @@ void matrix::get_p_q(){
     for(i=0;i<n;i++)
         cout<<p[i]<<"   "<<q[i]<<endl;
 }
+
+void multiplication(double *B, double **A, int n, double *x)
+{
+	for (int i = 0; i < n; i++)
+	{
+		B[i] = 0;
+	}
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			B[i] += A[i][j] * x[j];
+		}
+	}
+}
+
+void matrix::ex1()
+{
+	int number = 0;
+	int *znak = new int(1);
+	//system("cls");
+    cout<<"===============================================================================";
+    cout<<"|Poryadok|Vremya|Pogreshnost|Teoretich chislo operaciy|Realnoe chislo operaciy|";
+    cout<<"|--------+------+-----------+-------------------------+-----------------------|";
+	for (int n = 5; n <= 100; n += 5)
+	{
+		number = 0;
+		srand(time(0));
+		double *x = new double[n];
+		double *x2 = new double[n];
+		int *q = new int[n];
+		double *B = new double[n];
+		double **A = new double*[n];
+		for (int i = 0; i<n; i++)
+		{
+			A[i] = new double[n];
+		}
+		for (int i = 0; i<n; i++)
+		{
+			for (int j = 0; j<n; j++)
+			{
+				A[i][j] = rand() % 200 - 100;
+			}
+		}
+		for (int i = 0; i < n; i++)
+		{
+			x[i] = i + 1;
+		}
+		multiplication(B, A, n, x);
+		auto begin = chrono::high_resolution_clock::now();
+		number += task_2(B, A, n, q, znak);
+		number += task_3(B, A, n, q, x2);
+		auto end = chrono::high_resolution_clock::now();
+		printf("|%9i", n);
+		cout << "|";
+		printf("%11i", chrono::duration_cast<chrono::nanoseconds>(end - begin).count());
+		cout << "|";
+		printf("%13.4e", pogreshnost(B, A, n, x, x2, q));
+		cout << "|";
+		printf("%21.4f", (double)(n*n*n) / 3);
+		cout << "|";
+		printf("%16i", number);
+		cout << "|\n";
+		delete[] B;
+		delete[] q;
+		delete[] x;
+		delete[] x2;
+		for (int i = 0; i<n; i++)
+		{
+			delete[] A[i];
+		}
+		delete[] A;
+	}
+	printf("|_________|___________|_____________|_____________________|________________|\n");
+	delete znak;
+	system("pause");
+}
+/*
 void matrix::ex1{
     cout<<"===============================================================================";
     cout<<"|Poryadok|Vremya|Pogreshnost|Teoretich chislo operaciy|Realnoe chislo operaciy|";
@@ -313,4 +395,4 @@ void matrix::ex1{
             }
         }
     }
-}
+}*/

@@ -24,6 +24,7 @@ class matrix
         void get_obras();
         void obras();
         double use_slae();
+        void ex1();
     private:
         double **A;
         double **F;
@@ -38,6 +39,7 @@ class matrix
         int *p, *q;
         //double *b;
         double *buf;
+        int number;
 };
 
 #endif // MATRIX_H

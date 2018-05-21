@@ -116,6 +116,14 @@ int main()
 		}
 		case 10:
 		{
+            cout<<"ex1"<<endl;
+            matr.ex1();
+            system("pause");
+			break;
+
+		}
+		case 11:
+		{
             matr.del_matrix();
             matr.del_vect();
 			return 0;
