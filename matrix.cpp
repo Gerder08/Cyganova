@@ -110,12 +110,12 @@ void matrix::factoriz() {
 
     for (i = k + 1; i < n; i++){
 			F[p[k]][q[i]] /= F[p[k]][q[k]];
-			number++;
+			matrix::number++;
 			}
 		for (i = k + 1; i < n; i++){
 			for (j = k + 1; j < n; j++){
 				F[p[i]][q[j]] -= F[p[i]][q[k]] * F[p[k]][q[j]];
-				number++;
+				matrix::number++;
 			}
 		}
 
@@ -157,18 +157,18 @@ void matrix::slae(double *b){
         s=0;
         for(j=0; j<=i; j++){
             s+=F[p[i]][q[j]]*y[j];
-            number++;
+            matrix::number++;
         }
             y[i]=(b[p[i]]-s)/F[p[i]][q[i]];
     }
     for(i=n-1;i>=0;i--){
         s=0;
-        number++;
+        matrix::number++;
         for(j=i+1;j<n;j++){
         s+=F[p[i]][q[j]]*x[q[j]];
         }
         x[q[i]]=y[i]-s;
-        number++;
+        matrix::number++;
     }
 }
 
@@ -205,10 +205,10 @@ void matrix::obr(){
 	}
     for (int j =0; j<n; j++){
      F[p[j]][q[j]]=one/F[p[j]][q[j]];
-     number++;
+     matrix::number++;
        for (int i =j+1; i<n; i++){
             F[p[i]][q[j]]=-F[p[i]][q[j]]*F[p[i]][q[j]];
-            number++;
+            matrix::number++;
        }
      }
        //2 этап----------------------
@@ -217,7 +217,7 @@ void matrix::obr(){
         for (int i =0; i<=k-2; i++){
             for (int j =k; j<n; j++){
                F[p[i]][q[j]]+=F[p[i]][q[k-1]]*F[p[k-1]][q[j]];
-               number++;
+               matrix::number++;
             }
         }
       }
@@ -226,12 +226,12 @@ void matrix::obr(){
          for (int i =k+2; i<n; i++){
             for (int j =0; j<=k; j++){
                  F[p[i]][q[j]]+=F[p[i]][q[k+1]]*F[p[k+1]][q[j]];
-                 number++;
+                 matrix::number++;
             }
          }
             for (int j =0; j<=k; j++){
                 F[p[k+1]][q[j]]*=F[p[k+1]][q[k+1]];
-                number++;
+                matrix::number++;
             }
       }
      // 3 этап-----------------------------------
@@ -241,14 +241,14 @@ void matrix::obr(){
                 s=0;
                 for(int k=j; k<n; k++){
                   s+=F[p[i]][q[k]]*F[p[k]][q[j]];
-                  number++;
+                  matrix::number++;
                 }
             }
             if(i>=j){
                 s=F[p[i]][q[j]];
                 for(int k=i+1; k<n; k++){
                     s+=F[p[i]][q[k]]*F[p[k]][q[j]];
-                    number++;
+                    matrix::number++;
                 }
             }
             F[p[i]][q[j]]=s;
@@ -354,50 +354,60 @@ void matrix::ex1()
 {
 	int number = 0;
 	int *znak = new int(1);
+	//int n=matrix::n;
 	//system("cls");
     cout<<"==============================================================================="<<endl;
     cout<<"|Poryadok|Vremya|Pogreshnost|Teoretich chislo operaciy|Realnoe chislo operaciy|"<<endl;
     cout<<"|--------+------+-----------+-------------------------+-----------------------|"<<endl;
-	for (int n = 5; n <= 100; n += 5)
+	for (matrix::n = 5; matrix::n <= 100; matrix::n += 5)
 	{
-		number = 0;
+	    //cout<< matrix::n<<endl;
+		matrix::number = 0;
 		srand(time(0));
 		double *x = new double[n];
 		double *x2 = new double[n];
 		int *q = new int[n];
-		double *B = new double[n];
+		//double *B = new double[n];
+		//double **F = new double*[n];
+		matrix::create_matrix(n);
+		matrix::create_vect(n);/*
+		for (int i = 0; i<n; i++)
+		{
+			F[i] = new double[n];
+		}
 		double **A = new double*[n];
 		for (int i = 0; i<n; i++)
 		{
 			A[i] = new double[n];
 		}
+		*/
 		for (int i = 0; i<n; i++)
 		{
 			for (int j = 0; j<n; j++)
 			{
-				A[i][j] = rand() % 200 - 100;
+				matrix::A[i][j] = rand() % 200 - 100;
 			}
 		}
 		for (int i = 0; i < n; i++)
 		{
 			x[i] = i + 1;
 		}
-		multiplication(B, A, n, x);
+		multiplication(matrix::V, matrix::A, n, x);
 		auto begin = chrono::high_resolution_clock::now();
 		factoriz();
-        slae(B);
+        slae(V);
 		auto end = chrono::high_resolution_clock::now();
 		printf("|%9i", n);
 		cout << "|";
 		printf("%11i", chrono::duration_cast<chrono::nanoseconds>(end - begin).count());
 		cout << "|";
-		printf("%13.4e", pogreshnost(B, A, n, x, x2, q));
+		printf("%13.4e", pogreshnost(V, A, n, x, x2, q));
 		cout << "|";
 		printf("%21.4f", (double)(n*n*n) / 3);
 		cout << "|";
 		printf("%16i", matrix::number);
 		cout << "|\n";
-		delete[] B;
+		delete[] V;
 		delete[] q;
 		delete[] x;
 		delete[] x2;

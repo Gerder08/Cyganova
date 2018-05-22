@@ -41,7 +41,8 @@ int main()
 			<< "7. SLAE" << endl
 			<< "8. Obr" << endl
 			<< "9. Obras" << endl
-			<< "10.Vyhod" << endl;
+			<< "10.ex1" << endl
+			<< "11.Vyhod" << endl;
 
 		cin >> sw;
 		switch (sw)
