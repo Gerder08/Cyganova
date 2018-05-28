@@ -1,0 +1,69 @@
+# depslib dependency file v1.0
+1523945601 source:e:\cyganova\cyganova\main.cpp
+	<stdio.h>
+	<tchar.h>
+	<iostream>
+	<string>
+	<fstream>
+	<stdlib.h>
+	"matrix.h"
+	"vect.h"
+
+1524502743 e:\cyganova\cyganova\matrix.h
+
+1521528471 e:\cyganova\cyganova\vect.h
+
+1523887621 source:e:\cyganova\cyganova\matrix.cpp
+	"matrix.h"
+	<fstream>
+	<iostream>
+	<math.h>
+
+1527536695 source:g:\cyganova\cyganova\main.cpp
+	<stdio.h>
+	<tchar.h>
+	<iostream>
+	<string>
+	<fstream>
+	<stdlib.h>
+	"matrix.h"
+	"vect.h"
+
+1527537922 g:\cyganova\cyganova\matrix.h
+
+1526897318 g:\cyganova\cyganova\vect.h
+
+1526973614 source:g:\cyganova\cyganova\matrix.cpp
+	"matrix.h"
+	<fstream>
+	<iostream>
+	<math.h>
+	<time.h>
+	<chrono>
+	<conio.h>
+	<stdlib.h>
+
+1526968511 source:c:\users\КрасноваАК\desktop\cyganova-german\main.cpp
+	<stdio.h>
+	<tchar.h>
+	<iostream>
+	<string>
+	<fstream>
+	<stdlib.h>
+	"matrix.h"
+	"vect.h"
+
+1526893718 c:\users\КрасноваАК\desktop\cyganova-german\matrix.h
+
+1526893718 c:\users\КрасноваАК\desktop\cyganova-german\vect.h
+
+1526970013 source:c:\users\КрасноваАК\desktop\cyganova-german\matrix.cpp
+	"matrix.h"
+	<fstream>
+	<iostream>
+	<math.h>
+	<time.h>
+	<chrono>
+	<conio.h>
+	<stdlib.h>
+
