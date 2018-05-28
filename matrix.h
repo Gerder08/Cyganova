@@ -25,6 +25,17 @@ class matrix
         void obras();
         double use_slae();
         void ex1();
+        void ex2();
+        void ex2_1(double **A, int n);
+        void ex2_2(double **A, int n);
+        void ex2_3(double **A, int n);
+        void ex2_4(double **A, int n);
+        void ex2_5(double **A, int n);
+        void ex2_6(double **A, int n);
+        void ex2_7(double **A, int n);
+        void ex2_8(double **A, int n);
+        void ex2_9(double **A, int n);
+        void ex2_10(double **A, int n);
     private:
         double **A;
         double **F;

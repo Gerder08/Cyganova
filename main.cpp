@@ -42,7 +42,8 @@ int main()
 			<< "8. Obr" << endl
 			<< "9. Obras" << endl
 			<< "10.ex1" << endl
-			<< "11.Vyhod" << endl;
+			<< "11.ex2" << endl
+			<< "12.Vyhod" << endl;
 
 		cin >> sw;
 		switch (sw)
@@ -124,6 +125,14 @@ int main()
 
 		}
 		case 11:
+		{
+            cout<<"ex2"<<endl;
+            matr.ex2();
+            system("pause");
+			break;
+
+		}
+		case 12:
 		{
             matr.del_matrix();
             matr.del_vect();

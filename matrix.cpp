@@ -352,7 +352,7 @@ double pogreshnost(double *B, double **A, int n, double *x, double *x2, int *q)
 
 void matrix::ex1()
 {
-	int number = 0;
+	//int number = 0;
 	int *znak = new int(1);
 	//int n=matrix::n;
 	//system("cls");
@@ -370,17 +370,8 @@ void matrix::ex1()
 		//double *B = new double[n];
 		//double **F = new double*[n];
 		matrix::create_matrix(n);
-		matrix::create_vect(n);/*
-		for (int i = 0; i<n; i++)
-		{
-			F[i] = new double[n];
-		}
-		double **A = new double*[n];
-		for (int i = 0; i<n; i++)
-		{
-			A[i] = new double[n];
-		}
-		*/
+		matrix::create_vect(n);
+
 		for (int i = 0; i<n; i++)
 		{
 			for (int j = 0; j<n; j++)
@@ -421,17 +412,686 @@ void matrix::ex1()
 	delete znak;
 	system("pause");
 }
-/*
-void matrix::ex1{
-    cout<<"===============================================================================";
-    cout<<"|Poryadok|Vremya|Pogreshnost|Teoretich chislo operaciy|Realnoe chislo operaciy|";
-    cout<<"|--------+------+-----------+-------------------------+-----------------------|";
-    for(int N = 5; N<=100; N+5;){
-        matrix::create_matrix(N);
-        for(i=0;i<n;i++){
-            for(j=0;j<n;j++){
-                A[i][j] = rand() %50 -50;
-            }
-        }
-    }
-}*/
+
+void matrix::ex2_1(double **A, int n)
+{
+	for (int i = 1; i <= n; i++)
+	{
+		for (int j = 1; j <= n; j++)
+		{
+			A[i - 1][j - 1] = 1.0 / (i + j - 1.0);
+		}
+	}
+}
+void matrix::ex2_2(double **A, int n)
+{
+	for (int i = 0; i < 20; i++)
+	{
+		for (int j = 0; j < 20; j++)
+		{
+			A[i][j] = 0;
+		}
+		A[i][i] = 1;
+	}
+	for (int i = 0; i < 19; i++)
+	{
+		A[i][i + 1] = 1;
+	}
+}
+void matrix::ex2_3(double **A, int n)
+{
+	const int k = 7;
+	double S[k][k] = {
+		{ 5,4,7,5,6,7,5 },
+		{ 4,12,8,7,8,8,6 },
+		{ 7,8,10,9,8,7,7 },
+		{ 5,7,9,11,9,7,5 },
+		{ 6,8,8,9,10,8,9 },
+		{ 7,8,7,7,8,10,10 },
+		{ 5,6,7,5,9,10,10 }
+	};
+	for (int i = 0; i < k; i++)
+	{
+		for (int j = 0; j < k; j++)
+		{
+			A[i][j] = S[i][j];
+		}
+	}
+}
+void matrix::ex2_4(double **A, int n)
+{
+	n++;
+	for (int i = 1; i < n; i++)
+	{
+		for (int j = 1; j < n; j++)
+		{
+			if (i == j)
+			{
+				A[i - 1][j - 1] = 0.01 / (n - i + 1) / (i + 1);
+			}
+			else
+			{
+				if (i < j)
+				{
+					A[i - 1][j - 1] = 0;
+				}
+				else
+				{
+					A[i - 1][j - 1] = i * (n - j);
+				}
+			}
+		}
+	}
+}
+void matrix::ex2_5(double **A, int n)
+{
+	n++;
+	for (int i = 1; i < n; i++)
+	{
+		for (int j = 1; j < n; j++)
+		{
+			if (i == j)
+			{
+				A[i - 1][j - 1] = 0.01 / (n - i + 1) / (i + 1);
+			}
+			else
+			{
+				if (i < j)
+				{
+					A[i - 1][j - 1] = j * (n - i);
+				}
+				else
+				{
+					A[i - 1][j - 1] = i * (n - j);
+				}
+			}
+		}
+	}
+}
+void matrix::ex2_6(double **A, int n)
+{
+	const int k = 8;
+	double S[k][k] = {
+		{ 1 / tan(0.0000075)     , 1 / cos(3.142354)     , 1 - (1 / tan(0.0000075))  , 1 / cos(3.142354)     , 1                    , 1                   , 1                   , 1 },
+		{ -(1 / cos(0.00004))    , 1 / tan(3.145673)     , -(1 / cos(0.00004))     , 1 + (1 / tan(3.145673)) , 1                    , 1                   , 1                   , 1 },
+		{ 1 - (1 / tan(0.0000075)) , 1 / cos(3.142354)     , 1 / tan(0.0000075)      , 1 / cos(3.142354)     , 1 - (1 / tan(0.0000075)) , 1 / cos(3.142354)     , 1                   , 1 },
+		{ -(1 / cos(0.00004))    , 1 + (1 / tan(3.145673)) , -(1 / cos(0.00004))     , 1 / tan(3.145673)     , -(1 / cos(0.00004))    , 1 + (1 / tan(3.145673)) , 1                   , 1 },
+		{ 1                    , 1                   , 1 - (1 / tan(0.000006))   , 1 / cos(0.000045)     , 1 / tan(0.0000075)     , 1 / cos(3.142354)     , 1 - (1 / tan(0.000006)) , 1 / cos(0.000045) },
+		{ 1                    , 1                   , -(1 / cos(0.00004))     , 1 + (1 / tan(3.145673)) , -(1 / cos(0.00004))    , 1 / tan(3.145673)     , -(1 / cos(0.00004))   , 1 + (1 / tan(3.145673)) },
+		{ 1                    , 1                   , 1                     , 1                   , 1 - (1 / tan(0.0000075)) , 1 / cos(3.142354)     , 1 / tan(0.0000075)    , 1 / cos(3.142354) },
+		{ 1                    , 1                   , 1                     , 1                   , -(1 / cos(0.00004))    , 1 + (1 / tan(3.145673)) , -(1 / cos(0.00004))   , 1 / tan(3.145673) }
+	};
+	for (int i = 0; i < k; i++)
+	{
+		for (int j = 0; j < k; j++)
+		{
+			A[i][j] = S[i][j];
+		}
+	}
+}
+void matrix::ex2_7(double **A, int n)
+{
+	srand(time(0));
+	int al = rand() % 200 - 100;
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			A[i][j] = 0;
+		}
+		A[i][i] = pow(al, (abs(n - 2 * i) / 2));
+		A[0][i] = A[i][0] = A[0][0] / pow(al, i);
+		A[0][n - 1] = A[i][n - 1] = A[n - 1][n - 1] / pow(al, i);
+	}
+}
+void matrix::ex2_8(double **A, int n)
+{
+	double h = 0;
+	srand(time(0));
+	if (rand() % 2 == 0)
+	{
+		h = 1.0 / (rand() % 100 + 2);
+	}
+	else
+	{
+		if (rand() % 2 == 1)
+		{
+			h = 1000.0 - (1 / (rand() % 100 + 2));
+		}
+		else
+		{
+			h = 1000.0 + (1 / (rand() % 100 + 2));
+		}
+	}
+	n++;
+	for (int i = 1; i < n; i++)
+	{
+		for (int j = 1; j < n; j++)
+		{
+			A[i - 1][j - 1] = pow(2.7183, i*j*h);
+		}
+	}
+}
+void matrix::ex2_9(double **A, int n)
+{
+	srand(time(0));
+	double c = RAND_MAX - (rand() % 100000);
+	if (rand() % 2 == 0)
+	{
+		c = -c;
+	}
+	n++;
+	for (int i = 1; i < n; i++)
+	{
+		for (int j = 1; j < n; j++)
+		{
+			A[i - 1][j - 1] = c + ((double)log10(i*j) / log10(2));
+		}
+	}
+}
+void matrix::ex2_10(double **A, int n)
+{
+	const int k = 4;
+	double S[k][k] = {
+		{ 0.00009143,  0,  0,  0 },
+		{ 0.8762,  0.00007156,  0,  0 },
+		{ 0.7943,  0.8143,  0.00009504,  0 },
+		{ 0.8017,  0.6123,  0.7165,  0.00007123 }
+	};
+	for (int i = 0; i < k; i++)
+	{
+		for (int j = 0; j < k; j++)
+		{
+			A[i][j] = S[i][j];
+		}
+	}
+}
+
+void matrix::ex2()
+{
+	//matrix::number = 0;
+	int *znak = new int(1);
+	system("cls");
+	for (int f = 1; f < 11; f++)
+	{
+		if (f == 2)
+		{
+			printf("\n\n\n       ¹ Matrix %5i\n", f);
+			cout<<"==============================================================================="<<endl;
+            cout<<"|Poryadok|Vremya|Pogreshnost|Teoretich chislo operaciy|Realnoe chislo operaciy|"<<endl;
+            cout<<"|--------+------+-----------+-------------------------+-----------------------|"<<endl;
+			int n = 20;
+			matrix::number = 0;
+			srand(time(0));
+			double *x = new double[n];
+			double *x2 = new double[n];
+			int *q = new int[n];
+			matrix::create_matrix(n);
+		matrix::create_vect(n);
+
+			ex2_2(matrix::A, n);
+			for (int i = 0; i < n; i++)
+			{
+				x[i] = i + 1;
+			}
+			multiplication(matrix::V, matrix::A, n, x);
+            auto begin = chrono::high_resolution_clock::now();
+            factoriz();
+            slae(V);
+            auto end = chrono::high_resolution_clock::now();
+			printf("|%9i", n);
+			cout << "|";
+			printf("%11i", chrono::duration_cast<chrono::nanoseconds>(end - begin).count());
+			cout << "|";
+			printf("%13.4e", pogreshnost(V, A, n, x, x2, q));
+			cout << "|";
+			printf("%21.4f", (double)(n*n*n) / 3);
+			cout << "|";
+			printf("%16i", matrix::number);
+			cout << "|\n";
+			printf("|_________|___________|_____________|_____________________|________________|\n");
+			delete[] V;
+			delete[] q;
+			delete[] x;
+			delete[] x2;
+			for (int i = 0; i<n; i++)
+			{
+				delete[] A[i];
+			}
+			delete[] A;
+		}
+		else if (f == 3)
+		{
+			printf("\n\n\n       ¹ Matrix %5i\n", f);
+			cout<<"==============================================================================="<<endl;
+            cout<<"|Poryadok|Vremya|Pogreshnost|Teoretich chislo operaciy|Realnoe chislo operaciy|"<<endl;
+            cout<<"|--------+------+-----------+-------------------------+-----------------------|"<<endl;
+			int n = 7;
+			matrix::number = 0;
+			srand(time(0));
+			double *x = new double[n];
+			double *x2 = new double[n];
+			int *q = new int[n];
+			matrix::create_matrix(n);
+		matrix::create_vect(n);
+
+			ex2_3(A, n);
+			for (int i = 0; i < n; i++)
+			{
+				x[i] = i + 1;
+			}
+			multiplication(matrix::V, matrix::A, n, x);
+            auto begin = chrono::high_resolution_clock::now();
+            factoriz();
+            slae(V);
+            auto end = chrono::high_resolution_clock::now();
+			printf("|%9i", n);
+			cout << "|";
+			printf("%11i", chrono::duration_cast<chrono::nanoseconds>(end - begin).count());
+			cout << "|";
+			printf("%13.4e", pogreshnost(V, A, n, x, x2, q));
+			cout << "|";
+			printf("%21.4f", (double)(n*n*n) / 3);
+			cout << "|";
+			printf("%16i", matrix::number);
+			cout << "|\n";
+			printf("|_________|___________|_____________|_____________________|________________|\n");
+			delete[] V;
+			delete[] q;
+			delete[] x;
+			delete[] x2;
+			for (int i = 0; i<n; i++)
+			{
+				delete[] A[i];
+			}
+			delete[] A;
+		}
+		else if (f == 6)
+		{
+			printf("\n\n\n       ¹ Matrix %5i\n", f);
+			cout<<"==============================================================================="<<endl;
+            cout<<"|Poryadok|Vremya|Pogreshnost|Teoretich chislo operaciy|Realnoe chislo operaciy|"<<endl;
+            cout<<"|--------+------+-----------+-------------------------+-----------------------|"<<endl;
+			int n = 8;
+			matrix::number = 0;
+			srand(time(0));
+			double *x = new double[n];
+			double *x2 = new double[n];
+			int *q = new int[n];
+			matrix::create_matrix(n);
+		matrix::create_vect(n);
+
+			ex2_6(A, n);
+			for (int i = 0; i < n; i++)
+			{
+				x[i] = i + 1;
+			}
+			multiplication(matrix::V, matrix::A, n, x);
+            auto begin = chrono::high_resolution_clock::now();
+            factoriz();
+            slae(V);
+            auto end = chrono::high_resolution_clock::now();
+			printf("|%9i", n);
+			cout << "|";
+			printf("%11i", chrono::duration_cast<chrono::nanoseconds>(end - begin).count());
+			cout << "|";
+			printf("%13.4e", pogreshnost(V, A, n, x, x2, q));
+			cout << "|";
+			printf("%21.4f", (double)(n*n*n) / 3);
+			cout << "|";
+			printf("%16i", matrix::number);
+			cout << "|\n";
+			printf("|_________|___________|_____________|_____________________|________________|\n");
+			delete[] V;
+			delete[] q;
+			delete[] x;
+			delete[] x2;
+			for (int i = 0; i<n; i++)
+			{
+				delete[] A[i];
+			}
+			delete[] A;
+		}
+		else if (f == 10)
+		{
+			printf("\n\n\n       ¹ Matrix %5i\n", f);
+			cout<<"==============================================================================="<<endl;
+            cout<<"|Poryadok|Vremya|Pogreshnost|Teoretich chislo operaciy|Realnoe chislo operaciy|"<<endl;
+            cout<<"|--------+------+-----------+-------------------------+-----------------------|"<<endl;
+			int n = 4;
+			matrix::number = 0;
+			srand(time(0));
+			double *x = new double[n];
+			double *x2 = new double[n];
+			int *q = new int[n];
+			matrix::create_matrix(n);
+		matrix::create_vect(n);
+
+			ex2_10(A, n);
+			for (int i = 0; i < n; i++)
+			{
+				x[i] = i + 1;
+			}
+			multiplication(matrix::V, matrix::A, n, x);
+            auto begin = chrono::high_resolution_clock::now();
+            factoriz();
+            slae(V);
+            auto end = chrono::high_resolution_clock::now();
+			printf("|%9i", n);
+			cout << "|";
+			printf("%11i", chrono::duration_cast<chrono::nanoseconds>(end - begin).count());
+			cout << "|";
+			printf("%13.4e", pogreshnost(V, A, n, x, x2, q));
+			cout << "|";
+			printf("%21.4f", (double)(n*n*n) / 3);
+			cout << "|";
+			printf("%16i", matrix::number);
+			cout << "|\n";
+			printf("|_________|___________|_____________|_____________________|________________|\n");
+			delete[] V;
+			delete[] q;
+			delete[] x;
+			delete[] x2;
+			for (int i = 0; i<n; i++)
+			{
+				delete[] A[i];
+			}
+			delete[] A;
+		}
+		else if (f == 1)
+		{
+			printf("\n\n\n       ¹ Matrix %5i\n", f);
+			cout<<"==============================================================================="<<endl;
+            cout<<"|Poryadok|Vremya|Pogreshnost|Teoretich chislo operaciy|Realnoe chislo operaciy|"<<endl;
+            cout<<"|--------+------+-----------+-------------------------+-----------------------|"<<endl;
+			for (int n = 4; n <= 40; n += 4)
+			{
+				matrix::number = 0;
+				srand(time(0));
+				double *x = new double[n];
+				double *x2 = new double[n];
+				int *q = new int[n];
+				matrix::create_matrix(n);
+		matrix::create_vect(n);
+
+				ex2_1(A, n);
+                for (int i = 0; i < n; i++)
+                {
+                    x[i] = i + 1;
+                }
+                multiplication(matrix::V, matrix::A, n, x);
+                auto begin = chrono::high_resolution_clock::now();
+                factoriz();
+                slae(V);
+                auto end = chrono::high_resolution_clock::now();
+                printf("|%9i", n);
+                cout << "|";
+                printf("%11i", chrono::duration_cast<chrono::nanoseconds>(end - begin).count());
+                cout << "|";
+                printf("%13.4e", pogreshnost(V, A, n, x, x2, q));
+                cout << "|";
+                printf("%21.4f", (double)(n*n*n) / 3);
+                cout << "|";
+                printf("%16i", matrix::number);
+                cout << "|\n";
+
+                delete[] V;
+				delete[] q;
+				delete[] x;
+				delete[] x2;
+				for (int i = 0; i<n; i++)
+				{
+					delete[] A[i];
+				}
+				delete[] A;
+			}
+			printf("|_________|___________|_____________|_____________________|________________|\n");
+		}
+		else if (f == 4)
+		{
+			printf("\n\n\n       ¹ Matrix %5i\n", f);
+			cout<<"==============================================================================="<<endl;
+            cout<<"|Poryadok|Vremya|Pogreshnost|Teoretich chislo operaciy|Realnoe chislo operaciy|"<<endl;
+            cout<<"|--------+------+-----------+-------------------------+-----------------------|"<<endl;
+			for (int n = 4; n <= 40; n += 4)
+			{
+				matrix::number = 0;
+				srand(time(0));
+				double *x = new double[n];
+				double *x2 = new double[n];
+				int *q = new int[n];
+				matrix::create_matrix(n);
+		matrix::create_vect(n);
+
+				ex2_4(A, n);
+                for (int i = 0; i < n; i++)
+                {
+                    x[i] = i + 1;
+                }
+                multiplication(matrix::V, matrix::A, n, x);
+                auto begin = chrono::high_resolution_clock::now();
+                factoriz();
+                slae(V);
+                auto end = chrono::high_resolution_clock::now();
+                printf("|%9i", n);
+                cout << "|";
+                printf("%11i", chrono::duration_cast<chrono::nanoseconds>(end - begin).count());
+                cout << "|";
+                printf("%13.4e", pogreshnost(V, A, n, x, x2, q));
+                cout << "|";
+                printf("%21.4f", (double)(n*n*n) / 3);
+                cout << "|";
+                printf("%16i", matrix::number);
+                cout << "|\n";
+
+                delete[] V;
+				delete[] q;
+				delete[] x;
+				delete[] x2;
+				for (int i = 0; i<n; i++)
+				{
+					delete[] A[i];
+				}
+				delete[] A;
+			}
+			printf("|_________|___________|_____________|_____________________|________________|\n");
+		}
+		else if (f == 5)
+		{
+			printf("\n\n\n       ¹ Matrix %5i\n", f);
+			cout<<"==============================================================================="<<endl;
+            cout<<"|Poryadok|Vremya|Pogreshnost|Teoretich chislo operaciy|Realnoe chislo operaciy|"<<endl;
+            cout<<"|--------+------+-----------+-------------------------+-----------------------|"<<endl;
+			for (int n = 4; n <= 40; n += 4)
+			{
+				matrix::number = 0;
+				srand(time(0));
+				double *x = new double[n];
+				double *x2 = new double[n];
+				int *q = new int[n];
+				matrix::create_matrix(n);
+		matrix::create_vect(n);
+
+				ex2_5(A, n);
+			for (int i = 0; i < n; i++)
+			{
+				x[i] = i + 1;
+			}
+			multiplication(matrix::V, matrix::A, n, x);
+            auto begin = chrono::high_resolution_clock::now();
+            factoriz();
+            slae(V);
+            auto end = chrono::high_resolution_clock::now();
+			printf("|%9i", n);
+			cout << "|";
+			printf("%11i", chrono::duration_cast<chrono::nanoseconds>(end - begin).count());
+			cout << "|";
+			printf("%13.4e", pogreshnost(V, A, n, x, x2, q));
+			cout << "|";
+			printf("%21.4f", (double)(n*n*n) / 3);
+			cout << "|";
+			printf("%16i", matrix::number);
+			cout << "|\n";
+				delete[] V;
+				delete[] q;
+				delete[] x;
+				delete[] x2;
+				for (int i = 0; i<n; i++)
+				{
+					delete[] A[i];
+				}
+				delete[] A;
+			}
+			printf("|_________|___________|_____________|_____________________|________________|\n");
+		}
+		else if (f == 7)
+		{
+			printf("\n\n\n       ¹ Matrix %5i\n", f);
+			cout<<"==============================================================================="<<endl;
+            cout<<"|Poryadok|Vremya|Pogreshnost|Teoretich chislo operaciy|Realnoe chislo operaciy|"<<endl;
+            cout<<"|--------+------+-----------+-------------------------+-----------------------|"<<endl;
+			for (int n = 4; n <= 40; n += 4)
+			{
+				matrix::number = 0;
+				srand(time(0));
+				double *x = new double[n];
+				double *x2 = new double[n];
+				int *q = new int[n];
+				matrix::create_matrix(n);
+		matrix::create_vect(n);
+
+				ex2_7(A, n);
+			for (int i = 0; i < n; i++)
+			{
+				x[i] = i + 1;
+			}
+			multiplication(matrix::V, matrix::A, n, x);
+            auto begin = chrono::high_resolution_clock::now();
+            factoriz();
+            slae(V);
+            auto end = chrono::high_resolution_clock::now();
+			printf("|%9i", n);
+			cout << "|";
+			printf("%11i", chrono::duration_cast<chrono::nanoseconds>(end - begin).count());
+			cout << "|";
+			printf("%13.4e", pogreshnost(V, A, n, x, x2, q));
+			cout << "|";
+			printf("%21.4f", (double)(n*n*n) / 3);
+			cout << "|";
+			printf("%16i", matrix::number);
+			cout << "|\n";
+
+			delete[] V;
+				delete[] q;
+				delete[] x;
+				delete[] x2;
+				for (int i = 0; i<n; i++)
+				{
+					delete[] A[i];
+				}
+				delete[] A;
+			}
+			printf("|_________|___________|_____________|_____________________|________________|\n");
+		}
+		else if (f == 8)
+		{
+			printf("\n\n\n       ¹ Matrix %5i\n", f);
+			cout<<"==============================================================================="<<endl;
+            cout<<"|Poryadok|Vremya|Pogreshnost|Teoretich chislo operaciy|Realnoe chislo operaciy|"<<endl;
+            cout<<"|--------+------+-----------+-------------------------+-----------------------|"<<endl;
+			for (int n = 4; n <= 40; n += 4)
+			{
+				matrix::number = 0;
+				srand(time(0));
+				double *x = new double[n];
+				double *x2 = new double[n];
+				int *q = new int[n];
+				matrix::create_matrix(n);
+		matrix::create_vect(n);
+
+				ex2_8(A, n);
+			for (int i = 0; i < n; i++)
+			{
+				x[i] = i + 1;
+			}
+			multiplication(matrix::V, matrix::A, n, x);
+            auto begin = chrono::high_resolution_clock::now();
+            factoriz();
+            slae(V);
+            auto end = chrono::high_resolution_clock::now();
+			printf("|%9i", n);
+			cout << "|";
+			printf("%11i", chrono::duration_cast<chrono::nanoseconds>(end - begin).count());
+			cout << "|";
+			printf("%13.4e", pogreshnost(V, A, n, x, x2, q));
+			cout << "|";
+			printf("%21.4f", (double)(n*n*n) / 3);
+			cout << "|";
+			printf("%16i", matrix::number);
+			cout << "|\n";
+
+			delete[] V;
+				delete[] q;
+				delete[] x;
+				delete[] x2;
+				for (int i = 0; i<n; i++)
+				{
+					delete[] A[i];
+				}
+				delete[] A;
+			}
+			printf("|_________|___________|_____________|_____________________|________________|\n");
+		}
+		else if (f == 9)
+		{
+			printf("\n\n\n       ¹ Matrix %5i\n", f);
+			cout<<"==============================================================================="<<endl;
+            cout<<"|Poryadok|Vremya|Pogreshnost|Teoretich chislo operaciy|Realnoe chislo operaciy|"<<endl;
+            cout<<"|--------+------+-----------+-------------------------+-----------------------|"<<endl;
+			for (int n = 4; n <= 40; n += 4)
+			{
+				matrix::number = 0;
+				srand(time(0));
+				double *x = new double[n];
+				double *x2 = new double[n];
+				int *q = new int[n];
+				matrix::create_matrix(n);
+		matrix::create_vect(n);
+
+				ex2_9(A, n);
+			for (int i = 0; i < n; i++)
+			{
+				x[i] = i + 1;
+			}
+			multiplication(matrix::V, matrix::A, n, x);
+            auto begin = chrono::high_resolution_clock::now();
+            factoriz();
+            slae(V);
+            auto end = chrono::high_resolution_clock::now();
+			printf("|%9i", n);
+			cout << "|";
+			printf("%11i", chrono::duration_cast<chrono::nanoseconds>(end - begin).count());
+			cout << "|";
+			printf("%13.4e", pogreshnost(V, A, n, x, x2, q));
+			cout << "|";
+			printf("%21.4f", (double)(n*n*n) / 3);
+			cout << "|";
+			printf("%16i", matrix::number);
+			cout << "|\n";
+
+			delete[] V;
+				delete[] q;
+				delete[] x;
+				delete[] x2;
+				for (int i = 0; i<n; i++)
+				{
+					delete[] A[i];
+				}
+				delete[] A;
+			}
+			printf("|_________|___________|_____________|_____________________|________________|\n");
+		}
+	}
+	delete znak;
+	system("pause");
+}
