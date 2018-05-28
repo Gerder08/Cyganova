@@ -6,6 +6,7 @@
 #include <chrono>
 #include <conio.h>
 #include <stdlib.h>
+//#include "stdafx"
 //#include <vector>
 
 using namespace std;
@@ -1092,6 +1093,222 @@ void matrix::ex2()
 			printf("|_________|___________|_____________|_____________________|________________|\n");
 		}
 	}
+	delete znak;
+	system("pause");
+}
+double matrix::pogreshnost_task_9(double *B, double **A, int n, int *q, double **kopyA)
+{
+	double max_1 = 0;
+	double max_2 = 0;
+	double **mas = new double*[n];
+	for (int i = 0; i<n; i++)
+	{
+		mas[i] = new double[n];
+	}
+	double **one = new double*[n];
+	for (int i = 0; i<n; i++)
+	{
+		one[i] = new double[n];
+	}
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			mas[i][j] = 0;
+			one[i][j] = 0;
+		}
+		one[i][i] = 1;
+	}
+	for (int k = 0; k < n; k++)
+	{
+		for (int i = 0; i < n; i++)
+		{
+			for (int j = 0; j < n; j++)
+			{
+				mas[k][i] += kopyA[k][j] * A[j][i];
+			}
+		}
+	}
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			mas[i][j] = one[i][j] - mas[i][j];
+			one[i][j] = 0;
+		}
+	}
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			one[i][0] += fabs(mas[i][j]);
+		}
+	}
+	max_1 = one[0][0];
+	for (int i = 0; i < n; i++)
+	{
+		if (max_1 < one[i][0])
+		{
+			max_1 = one[i][0];
+		}
+	}
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			one[i][1] += fabs(kopyA[i][j]);
+		}
+	}
+	max_2 = one[0][1];
+	for (int i = 0; i < n; i++)
+	{
+		if (max_2 < one[i][1])
+		{
+			max_2 = one[i][1];
+		}
+	}
+	for (int i = 0; i<n; i++)
+	{
+		delete[] mas[i];
+	}
+	delete[] mas;
+	for (int i = 0; i<n; i++)
+	{
+		delete[] one[i];
+	}
+	delete[] one;
+	return max_1 / max_2;
+}
+void matrix::ex3()
+{
+	//int number_1 = 0;
+	//int number_2 = 0;
+	double p1 = 0;
+	double p2 = 0;
+	int *znak = new int(1);
+	system("cls");
+	cout<<"======================================================================================================================================="<<endl;
+            cout<<"|Poryadok|Vremya1|Vremya2|Pogreshnost1|Pogreshnost2|Realnoe chislo operaciy1|Realnoe chislo operaciy2|Teoretich chislo operaciy|"<<endl;
+            cout<<"|--------+-------+-------+------------+------------+------------------------+------------------------+-------------------------|"<<endl;
+	for (int n = 5; n <= 100; n += 5)
+	{
+		matrix::number = 0;
+		matrix::number_1 = 0;
+		matrix::number_2 = 0;
+		srand(time(0));
+		double *x = new double[n];
+		double *x2 = new double[n];
+		int *q = new int[n];
+		matrix::create_matrix(n);
+		matrix::create_vect(n);
+
+		//double *B = new double[n];
+		//double **X = new double*[n];
+		/*
+		for (int i = 0; i<n; i++)
+		{
+			X[i] = new double[n];
+		}*/
+		double **kopyA = new double*[n];
+		for (int i = 0; i<n; i++)
+		{
+			kopyA[i] = new double[n];
+		}
+
+		for (int i = 0; i<n; i++)
+		{
+			V[i] = rand() % 200 - 100;
+		}
+		for (int i = 0; i<n; i++)
+		{
+			for (int j = 0; j<n; j++)
+			{
+				kopyA[i][j] = A[i][j] = rand() % 200 - 100;
+			}
+		}
+		/*
+		for (int i = 0; i<n; i++)
+		{
+			for (int j = 0; j<n; j++)
+			{
+				kopyA[i][j] = A_1[i][j] = A_2[i][j] = rand() % 200 - 100;
+			}
+		}
+		*/
+		auto begin = chrono::high_resolution_clock::now();
+		//task_2(B, A_1, n, q, znak);
+		//task_5(B, A_1, n, q, x, X);
+		factoriz();
+            slae(V);
+		auto end = chrono::high_resolution_clock::now();
+		matrix::number_1=matrix::number;
+		matrix::number=0;
+		p1 = pogreshnost_task_9(V, X, n, q, kopyA);
+		delete[] V;
+		for (int i = 0; i<n; i++)
+		{
+			delete[] A[i];
+		}
+		delete[] A;
+		matrix::create_matrix(n);
+		matrix::create_vect(n);
+		for (int i = 0; i<n; i++)
+		{
+			V[i] = rand() % 200 - 100;
+		}
+		for (int i = 0; i<n; i++)
+		{
+			for (int j = 0; j<n; j++)
+			{
+				kopyA[i][j] = A[i][j] = rand() % 200 - 100;
+			}
+		}
+		auto a = chrono::high_resolution_clock::now();
+		factoriz();
+            slae(V);
+		//task_2(B, A_2, n, q, znak);
+		//task_6(B, A_2, n, q, x, X);
+		auto b = chrono::high_resolution_clock::now();
+		matrix::number_2=matrix::number;
+		matrix::number=0;
+		p2 = pogreshnost_task_9(V, X, n, q, kopyA);
+		printf("|%9i", n);
+		cout << "|";
+		printf("%13i", chrono::duration_cast<chrono::nanoseconds>(end - begin).count());
+		cout << "|";
+		printf("%13i", chrono::duration_cast<chrono::nanoseconds>(b - a).count());
+		cout << "|";
+		printf("%15.4e", p1);
+		cout << "|";
+		printf("%15.4e", p2);
+		cout << "|";
+		printf("%18i", number_1);
+		cout << "|";
+		printf("%18i", number_2);
+		cout << "|";
+		printf("%21.4i", n*n*n);
+		cout << "|\n";
+		delete[] V;
+		delete[] q;
+		delete[] x;
+		delete[] x2;
+		for (int i = 0; i<n; i++)
+		{
+			delete[] A;
+		}
+		delete[] A;
+		for (int i = 0; i<n; i++)
+		{
+			delete[] X[i];
+		}
+		delete[] X;
+		for (int i = 0; i<n; i++)
+		{
+			delete[] kopyA[i];
+		}
+		delete[] kopyA;
+	}
+	printf("|_________|_____________|_____________|_______________|_______________|__________________|__________________|_____________________|\n");
 	delete znak;
 	system("pause");
 }

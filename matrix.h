@@ -1,6 +1,6 @@
 #ifndef MATRIX_H
 #define MATRIX_H
-
+//#include "stdafx"
 
 class matrix
 {
@@ -26,6 +26,7 @@ class matrix
         double use_slae();
         void ex1();
         void ex2();
+        void ex3();
         void ex2_1(double **A, int n);
         void ex2_2(double **A, int n);
         void ex2_3(double **A, int n);
@@ -36,6 +37,7 @@ class matrix
         void ex2_8(double **A, int n);
         void ex2_9(double **A, int n);
         void ex2_10(double **A, int n);
+        double pogreshnost_task_9(double *B, double **A, int n, int *q, double **kopyA);
     private:
         double **A;
         double **F;
@@ -51,6 +53,8 @@ class matrix
         //double *b;
         double *buf;
         int number;
+        int number_1;
+        int number_2;
 };
 
 #endif // MATRIX_H

@@ -19,7 +19,7 @@
 	<iostream>
 	<math.h>
 
-1527536695 source:g:\cyganova\cyganova\main.cpp
+1527543494 source:g:\cyganova\cyganova\main.cpp
 	<stdio.h>
 	<tchar.h>
 	<iostream>
@@ -29,11 +29,11 @@
 	"matrix.h"
 	"vect.h"
 
-1527537922 g:\cyganova\cyganova\matrix.h
+1527543266 g:\cyganova\cyganova\matrix.h
 
-1526897318 g:\cyganova\cyganova\vect.h
+1527538430 g:\cyganova\cyganova\vect.h
 
-1526973614 source:g:\cyganova\cyganova\matrix.cpp
+1527543673 source:g:\cyganova\cyganova\matrix.cpp
 	"matrix.h"
 	<fstream>
 	<iostream>
