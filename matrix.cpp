@@ -323,17 +323,18 @@ void matrix::get_p_q(){
         cout<<p[i]<<"   "<<q[i]<<endl;
 }
 
-void multiplication(double *B, double **A, int n, double *x)
+void matrix::multiplication(double *B, double **M, int n, double *x)
 {
 	for (int i = 0; i < n; i++)
 	{
-		B[i] = 0;
+		V[i] = 0;
 	}
 	for (int i = 0; i < n; i++)
 	{
 		for (int j = 0; j < n; j++)
 		{
-			B[i] += A[i][j] * x[j];
+			V[i] += A[i][j] * x2[j];
+			//cout<<V<<endl;
 		}
 	}
 }
@@ -380,15 +381,16 @@ void matrix::ex1()
 				matrix::A[i][j] = rand() % 200 - 100;
 			}
 		}
-		for (int i = 0; i < n; i++)
-		{
-			x[i] = i + 1;
-		}
-		multiplication(matrix::V, matrix::A, n, x);
 		auto begin = chrono::high_resolution_clock::now();
 		factoriz();
         slae(V);
 		auto end = chrono::high_resolution_clock::now();
+		for (int i = 0; i < n; i++)
+		{
+			x2[i] = i + 1;
+		}
+		multiplication(matrix::V, matrix::A, n, x);
+
 		printf("|%9i", n);
 		cout << "|";
 		printf("%11i", chrono::duration_cast<chrono::nanoseconds>(end - begin).count());
@@ -628,7 +630,7 @@ void matrix::ex2()
 			double *x2 = new double[n];
 			int *q = new int[n];
 			matrix::create_matrix(n);
-		matrix::create_vect(n);
+            matrix::create_vect(n);
 
 			ex2_2(matrix::A, n);
 			for (int i = 0; i < n; i++)

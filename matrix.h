@@ -38,6 +38,7 @@ class matrix
         void ex2_9(double **A, int n);
         void ex2_10(double **A, int n);
         double pogreshnost_task_9(double *B, double **A, int n, int *q, double **kopyA);
+        void multiplication(double *B, double **A, int n, double *x);
     private:
         double **A;
         double **F;
@@ -45,6 +46,7 @@ class matrix
         double **E;
         double *V;
         double *x;
+        double *x2;
         int d=1;
         int n;
         int i;
